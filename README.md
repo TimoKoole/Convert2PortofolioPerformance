@@ -1,2 +1,7 @@
-# DeGiro2PortofolioPerformance
-program to convert export from DeGiro to portofolio performance
+# Account.csv
+manual changes
+* added column mutation cur and transaction cur
+
+# Transactions.csv
+DegiroType: transactions
+portofolio performance type: portofolio
