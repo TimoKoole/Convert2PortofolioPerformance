@@ -1,29 +1,24 @@
 import sys
 import os
 import pandas as pd
-
-
-
-
-def convert_date(date):
-    year = str(date.year)
-    month = str(date.month)
-    day = str(date.day)
-    return year + '-' + month + '-' + day
+import util
 
 
 class DeGiroConverterTrans:
 
-    EXPORT_COLUMNS = ["Date", "ISIN", "value", "shares", "Fees", 'Transaction Currency', 'Exchange Rate', 'Type']
+    EXPORT_COLUMNS = ["Date", "ISIN", "value", "shares",
+                      "Fees", 'Transaction Currency', 'Exchange Rate', 'Type']
 
     def __init__(self, inputfile):
-        dateparse = lambda x: pd.datetime.strptime(x, '%d-%m-%Y')
-        self.inputdata = pd.read_csv(inputfile, parse_dates=[0], date_parser=dateparse)
+        def dateparse(x): return pd.datetime.strptime(x, '%d-%m-%Y')
+        self.inputdata = pd.read_csv(inputfile, parse_dates=[
+                                     0], date_parser=dateparse)
         self.outputdata = pd.DataFrame(
             index=self.inputdata.index, columns=self.EXPORT_COLUMNS, data=None)
 
     def convert(self):
-        self.outputdata['Date'] = self.inputdata['Datum'].apply(convert_date)
+        self.outputdata['Date'] = self.inputdata['Datum'].apply(
+        util.convert_date)
         self.outputdata['ISIN'] = self.inputdata['ISIN']
         self.outputdata['shares'] = self.inputdata['Aantal']
         self.outputdata['Fees'] = self.inputdata.iloc[:, 14]
@@ -39,12 +34,13 @@ class DeGiroConverterTrans:
 
     def write_outputfile(self, outputfolder, outputfile):
         os.makedirs(outputfolder, exist_ok=True)
-        self.outputdata.to_csv(os.path.join(outputfolder, outputfile), decimal=",", sep=",")
-
-
+        self.outputdata.to_csv(os.path.join(
+            outputfolder, outputfile), decimal=",", sep=",")
 
 
 if __name__ == '__main__':
-    converter = DeGiroConverterTrans(os.path.dirname(sys.argv[0]) + '\\Transactions.csv')
+    converter = DeGiroConverterTrans(
+        os.path.dirname(sys.argv[0]) + '\\Transactions.csv')
     converter.convert()
-    converter.write_outputfile(os.path.dirname(sys.argv[0]), 'degiro_portofolio_converted.csv')
+    converter.write_outputfile(os.path.dirname(
+        sys.argv[0]), 'degiro_portofolio_converted.csv')

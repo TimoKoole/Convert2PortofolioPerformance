@@ -1,6 +1,7 @@
 # own additions
 *.csv
 .idea/
+.vscode/
 
 
 # Byte-compiled / optimized / DLL files
