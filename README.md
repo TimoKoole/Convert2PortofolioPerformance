@@ -1,9 +1,10 @@
 # Convert DeGiro to portfolio performance
 
 ## Account.csv
-As of now Transaction import by PDF actually works fine out of the box
+DegiroType: Rekening
+portofolio performance type: Account
+import twice, one for usd account one for EUR account
+
 
 ## Transactions.csv
-DegiroType: transactions
-portofolio performance type: portofolio
-import twice, one for usd account one for EUR account
+As of now Transaction import by PDF actually works fine out of the box
