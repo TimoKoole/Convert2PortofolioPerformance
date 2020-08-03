@@ -58,7 +58,7 @@ class DeGiroConverterAccount:
     def write_outputfile(self, outputfolder, outputfile):
         os.makedirs(outputfolder, exist_ok=True)
         self.outputdata.to_csv(os.path.join(
-            outputfolder, outputfile), decimal=",", sep=",")
+            outputfolder, outputfile), decimal=",", sep=";")
 
     def filter_input(self):
         df = self.inputdata

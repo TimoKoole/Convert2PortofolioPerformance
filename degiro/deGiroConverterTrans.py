@@ -35,7 +35,7 @@ class DeGiroConverterTrans:
     def write_outputfile(self, outputfolder, outputfile):
         os.makedirs(outputfolder, exist_ok=True)
         self.outputdata.to_csv(os.path.join(
-            outputfolder, outputfile), decimal=",", sep=",")
+            outputfolder, outputfile), decimal=",", sep=";")
 
 
 if __name__ == '__main__':
