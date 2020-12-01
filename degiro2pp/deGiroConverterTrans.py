@@ -1,7 +1,7 @@
 import sys
 import os
 import pandas as pd
-import degiro.util as util
+import degiro2pp.util as util
 import datetime
 
 

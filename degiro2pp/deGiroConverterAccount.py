@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import logging
 
-import degiro.util
+import degiro2pp.util
 import datetime
 from currency_converter import CurrencyConverter
 
@@ -42,7 +42,7 @@ class DeGiroConverterAccount:
             index=self.df.index, columns=self.EXPORT_COLUMNS, data=None)
 
     def convert(self):
-        self.outputdata['Date'] = self.df['Datum'].apply(degiro.util.convert_date)
+        self.outputdata['Date'] = self.df['Datum'].apply(degiro2pp.util.convert_date)
         self.outputdata['ISIN'] = self.df['ISIN']
         self.df['Value'] = self.df.iloc[:, 8]
         self.outputdata['Transaction Currency'] = self.df['Mutatie']
@@ -55,17 +55,18 @@ class DeGiroConverterAccount:
         self.outputdata['Value'] = self.df.apply(lambda row: convert_currency(row['ISIN'], row['Value'], row['Datum']),
                                                  axis=1)
 
-    def write_outputfile(self, outputfolder, outputfile):
-        os.makedirs(outputfolder, exist_ok=True)
-        self.outputdata.to_csv(os.path.join(
-            outputfolder, outputfile), decimal=",", sep=";")
+    def write_outputfile(self, outputfile):
+        self.outputdata.to_csv(outputfile, decimal=",", sep=";")
 
     def filter_input(self):
         df = self.inputdata
+
+        # exclude this selection, these transactions are weird and are braking things.
         df = df[~df["Omschrijving"].str.contains('geldmarktfonds')]
 
+        # This is the final selection
         df = df[(df['Omschrijving'].str.contains("Dividend")) | (
-                df['Omschrijving'] == "iDEAL storting")]
+                df['Omschrijving'].str.contains('iDEAL'))]
 
         return df
 
