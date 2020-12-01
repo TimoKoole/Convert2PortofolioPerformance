@@ -1,5 +1,6 @@
-import os, sys
 import argparse
+import os
+
 from degiro2pp.deGiroConverterAccount import DeGiroConverterAccount
 
 if __name__ == '__main__':
@@ -9,9 +10,8 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--output', help='output file, default degiro_account_converted.csv', type=str, nargs='?',
                         default=os.path.join(os.getcwd(), "degiro_account_converted.csv"))
     args = parser.parse_args()
-    print(args)
+    print("Converting file:" + args.input)
 
     converter = DeGiroConverterAccount(args.input)
     converter.convert()
     converter.write_outputfile(outputfile=args.output)
-
