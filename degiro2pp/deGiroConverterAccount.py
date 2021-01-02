@@ -30,7 +30,7 @@ class DeGiroConverterAccount:
 
     def dateparse(self, date):
         try:
-            return pd.datetime.strptime(date, '%d-%m-%Y')
+            return datetime.strptime(date, '%d-%m-%Y')
         except:
             return ''
 
@@ -43,6 +43,7 @@ class DeGiroConverterAccount:
         else:
             self.inputdata = data
         self.df = self.filter_input()
+        # print(str(self.df.to_dict()).replace(" nan", " float('nan')"))
         self.outputdata = pd.DataFrame(
             index=self.df.index, columns=self.EXPORT_COLUMNS, data=None)
 
@@ -76,7 +77,7 @@ class DeGiroConverterAccount:
 
         # This is the final selection
         df = df[(df['Omschrijving'].str.contains("Dividend")) | (
-            df['Omschrijving'].str.contains('iDEAL'))]
+            df['Omschrijving'].str.contains('iDEAL Deposit'))]
 
         return df
 
