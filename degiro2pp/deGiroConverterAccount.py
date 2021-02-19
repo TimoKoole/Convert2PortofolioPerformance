@@ -30,7 +30,7 @@ class DeGiroConverterAccount:
 
     def dateparse(self, date):
         try:
-            return datetime.strptime(date, '%d-%m-%Y')
+            return datetime.datetime.strptime(date, '%d-%m-%Y')
         except:
             return ''
 

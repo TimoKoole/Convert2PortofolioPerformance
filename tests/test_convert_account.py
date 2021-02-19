@@ -146,6 +146,13 @@ class TestdeGiroConverterAccount(unittest.TestCase):
         converted = self.converter.outputdata[self.converter.outputdata['ISIN'] == 'IE00B3RBWM25']
         self.assertEqual(converted['Value'].iloc[0], '71,57')
 
+    def test_date(self):
+        """
+        Test date conversion
+        """
+        entry = self.converter.outputdata.iloc[0]
+        self.assertEqual(entry['Date'], '2020-11-18')
+
 
 if __name__ == '__main__':
     unittest.main()
