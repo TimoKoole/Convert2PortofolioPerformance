@@ -11,7 +11,7 @@ class DeGiroConverterTrans:
                       "Fees", 'Transaction Currency', 'Exchange Rate', 'Type', 'Notes']
 
     def __init__(self, inputfile):
-        def dateparse(x): return pd.datetime.strptime(x, '%d-%m-%Y')
+        def dateparse(x): return datetime.strptime(x, '%d-%m-%Y')
         self.inputdata = pd.read_csv(inputfile, parse_dates=[
                                      0], date_parser=dateparse)
         self.outputdata = pd.DataFrame(
