@@ -15,7 +15,7 @@ convert_isin_usd_to_euro = ['IE00B3RBWM25', 'IE00B0M62Q58', 'IE0031442068', 'IE0
 def convert_currency(isin: str, value: str, date):
     if isin in convert_isin_usd_to_euro:
         try:
-            converted = c.convert(float(value.replace(',', '.')), 'USD', 'EUR', date=date)
+            converted = c.convert(value, 'USD', 'EUR', date=date)
             return ('%.2f' % converted).replace('.', ',')
         except Exception as e:
             logging.exception("message")
@@ -39,7 +39,7 @@ class DeGiroConverterAccount:
 
         if data is None:
             self.inputdata = pd.read_csv(inputfile, parse_dates=[
-                0], date_parser=self.dateparse)
+                0], date_parser=self.dateparse, decimal=",")
         else:
             self.inputdata = data
         self.df = self.filter_input()
@@ -50,7 +50,7 @@ class DeGiroConverterAccount:
     def convert(self):
         self.outputdata['Date'] = self.df['Datum'].apply(degiro2pp.util.convert_date)
         self.outputdata['ISIN'] = self.df['ISIN']
-        self.df['Value'] = self.df.iloc[:, 8]
+        self.df['Value'] = self.df.iloc[:, 8].astype(float)
         self.outputdata['Transaction Currency'] = self.df['Mutatie']
         self.outputdata['Note'] = self.note
         self.outputdata['Type'][self.df['Omschrijving'].str.contains("Dividendbelasting")] = 'Taxes'
@@ -66,7 +66,7 @@ class DeGiroConverterAccount:
                                                  axis=1)
 
     def write_outputfile(self, outputfile: str):
-        self.outputdata.to_csv(outputfile, decimal=",", sep=";")
+        self.outputdata.to_csv(outputfile, decimal=".", sep=";")
         print("Wrote output to: " + outputfile)
 
     def filter_input(self):

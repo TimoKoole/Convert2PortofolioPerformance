@@ -5,15 +5,20 @@ import degiro2pp.util as util
 import datetime
 
 
-class DeGiroConverterTrans:
+def dateparse(x): return datetime.datetime.strptime(x, '%d-%m-%Y')
 
+
+class DeGiroConverterTrans:
     EXPORT_COLUMNS = ["Date", "ISIN", "Value", "shares",
                       "Fees", 'Transaction Currency', 'Exchange Rate', 'Type', 'Notes']
 
-    def __init__(self, inputfile):
-        def dateparse(x): return datetime.strptime(x, '%d-%m-%Y')
-        self.inputdata = pd.read_csv(inputfile, parse_dates=[
-                                     0], date_parser=dateparse)
+    def __init__(self, inputfile: str = None, data=None):
+        if data is None:
+            self.inputdata = pd.read_csv(inputfile, parse_dates=[
+                0], date_parser=dateparse)
+        else:
+            self.inputdata = data
+        # print(str(self.inputdata.to_dict()).replace(" nan", " float('nan')"))
         self.outputdata = pd.DataFrame(
             index=self.inputdata.index, columns=self.EXPORT_COLUMNS, data=None)
         self.note = 'Timo import at: ' + str(datetime.datetime.now())
@@ -23,19 +28,13 @@ class DeGiroConverterTrans:
         self.outputdata['ISIN'] = self.inputdata['ISIN']
         self.outputdata['shares'] = self.inputdata['Aantal']
         self.outputdata['Fees'] = self.inputdata.iloc[:, 14]
-        self.outputdata['Value'] = self.inputdata.iloc[:, 9]
-        self.outputdata['Transaction Currency'] = 'EUR'
-        self.outputdata['Transaction Currency'] = self.inputdata['Lokale waarde']
+        self.outputdata['Value'] = self.inputdata['Waarde'].fillna(0.0)
+        self.outputdata['Transaction Currency'] = self.inputdata.iloc[:, 10]
         self.outputdata['Exchange Rate'] = self.inputdata['Wisselkoers']
 
-
-
-
-
-    def write_outputfile(self, outputfolder, outputfile):
-        os.makedirs(outputfolder, exist_ok=True)
-        self.outputdata.to_csv(os.path.join(
-            outputfolder, outputfile), decimal=",", sep=";")
+    def write_outputfile(self, outputfile: str):
+        self.outputdata.to_csv(outputfile, decimal=".", sep=";")
+        print("Wrote output to: " + outputfile)
 
 
 if __name__ == '__main__':
