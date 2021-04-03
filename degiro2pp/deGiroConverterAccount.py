@@ -16,7 +16,7 @@ def convert_currency(isin: str, value: str, date):
     if isin in convert_isin_usd_to_euro:
         try:
             converted = c.convert(value, 'USD', 'EUR', date=date)
-            return ('%.2f' % converted).replace('.', ',')
+            return round(converted, 2)
         except Exception as e:
             logging.exception("message")
             print(isin + str(value) + str(date))

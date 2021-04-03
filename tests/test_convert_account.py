@@ -61,7 +61,7 @@ class TestdeGiroConverterAccount(unittest.TestCase):
         converter = DeGiroConverterAccount(data=df)
         converter.convert()
         converted = converter.outputdata[converter.outputdata['ISIN'] == 'IE00B3RBWM25']
-        self.assertEqual(converted['Value'].iloc[0], '71,57')
+        self.assertEqual(converted['Value'].iloc[0], 71.57)
 
     def test_date(self):
         """
