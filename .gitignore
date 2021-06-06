@@ -1,8 +1,8 @@
 # own additions
 *.csv
-.idea/*
+.idea/
 .vscode/
-*.gz
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

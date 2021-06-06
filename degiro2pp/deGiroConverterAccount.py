@@ -2,6 +2,7 @@ import datetime
 import logging
 import os
 import sys
+import degiro2pp.util as util
 
 import pandas as pd
 from currency_converter import CurrencyConverter
@@ -25,8 +26,6 @@ def convert_currency(isin: str, value: str, date):
 
 
 class DeGiroConverterAccount:
-    EXPORT_COLUMNS = ["Date", "ISIN", "Value",
-                      "shares", "Fees", 'Transaction Currency', 'Type']
 
     def dateparse(self, date):
         try:
@@ -45,7 +44,7 @@ class DeGiroConverterAccount:
         self.df = self.filter_input()
         # print(str(self.df.to_dict()).replace(" nan", " float('nan')"))
         self.outputdata = pd.DataFrame(
-            index=self.df.index, columns=self.EXPORT_COLUMNS, data=None)
+            index=self.df.index, columns=util.EXPORT_COLUMNS_ACCOUNT, data=None)
 
     def convert(self):
         self.outputdata['Date'] = self.df['Datum'].apply(degiro2pp.util.convert_date)

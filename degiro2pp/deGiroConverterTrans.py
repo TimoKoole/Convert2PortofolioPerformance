@@ -9,18 +9,15 @@ def dateparse(x): return datetime.datetime.strptime(x, '%d-%m-%Y')
 
 
 class DeGiroConverterTrans:
-    EXPORT_COLUMNS = ["Date", "ISIN", "Value", "shares",
-                      "Fees", 'Transaction Currency', 'Exchange Rate', 'Type', 'Notes']
 
     def __init__(self, inputfile: str = None, data=None):
         if data is None:
-            self.inputdata = pd.read_csv(inputfile, parse_dates=[
-                0], date_parser=dateparse)
+            self.inputdata = pd.read_csv(inputfile, parse_dates=[ 0], date_parser=dateparse)
         else:
             self.inputdata = data
         # print(str(self.inputdata.to_dict()).replace(" nan", " float('nan')"))
         self.outputdata = pd.DataFrame(
-            index=self.inputdata.index, columns=self.EXPORT_COLUMNS, data=None)
+            index=self.inputdata.index, columns=util.EXPORT_COLUMNS_TRANSACTIONS, data=None)
         self.note = 'Timo import at: ' + str(datetime.datetime.now())
 
     def convert(self):
