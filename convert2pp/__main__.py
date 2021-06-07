@@ -2,8 +2,8 @@ import argparse
 import os
 from datetime import date
 
-from degiro2pp.deGiroConverterAccount import DeGiroConverterAccount
-from degiro2pp.deGiroConverterTrans import DeGiroConverterTrans
+from convert2pp.deGiroConverterAccount import DeGiroConverterAccount
+from convert2pp.deGiroConverterTrans import DeGiroConverterTrans
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

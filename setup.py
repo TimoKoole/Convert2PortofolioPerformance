@@ -4,7 +4,7 @@ import pandas
 
 setup(
     # Application name:
-    name="degiro2pp",
+    name="convert2pp",
 
     # Version number (initial):
     version="0.0.1",
@@ -13,7 +13,7 @@ setup(
     author="Timo Koole",
 
     # Packages
-    packages=["degiro2pp"],
+    packages=["convert2pp"],
 
     # Include additional files into the package
     # include_package_data=True,
@@ -23,7 +23,7 @@ setup(
 
     #
     # license="LICENSE.txt",
-    description="Application to convert Degiro files to PortfolioPerformance",
+    description="Application to convert files to PortfolioPerformance",
 
     # long_description=open("README.txt").read(),
 

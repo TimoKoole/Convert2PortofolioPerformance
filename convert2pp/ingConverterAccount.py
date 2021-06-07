@@ -2,12 +2,12 @@ import datetime
 import logging
 import os
 import sys
-import degiro2pp.util as util
+import convert2pp.util as util
 
 import pandas as pd
 
 
-import degiro2pp.util
+import convert2pp.util
 
 
 
@@ -33,7 +33,7 @@ class IngConverterAccount:
             index=self.df.index, columns=util.EXPORT_COLUMNS_ACCOUNT, data=None)
 
     def convert(self):
-        self.outputdata['Date'] = self.df['Datum'].apply(degiro2pp.util.convert_date)
+        self.outputdata['Date'] = self.df['Datum'].apply(convert2pp.util.convert_date)
         self.outputdata['Value'] = self.df['Bedrag']
         self.outputdata['Transaction Currency'] = 'EUR'
         self.outputdata['Note'] = self.note

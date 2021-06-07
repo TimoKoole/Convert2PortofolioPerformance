@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
 from pandas._libs.tslibs.timestamps import Timestamp
-from degiro2pp.ingConverterAccount import IngConverterAccount
+from convert2pp.ingConverterAccount import IngConverterAccount
 
 
 class TestIngConverterAccountt(unittest.TestCase):

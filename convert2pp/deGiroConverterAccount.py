@@ -2,12 +2,12 @@ import datetime
 import logging
 import os
 import sys
-import degiro2pp.util as util
+import convert2pp.util as util
 
 import pandas as pd
 from currency_converter import CurrencyConverter
 
-import degiro2pp.util
+import convert2pp.util
 
 c = CurrencyConverter(fallback_on_missing_rate=True, fallback_on_wrong_date=True)
 convert_isin_usd_to_euro = ['IE00B3RBWM25', 'IE00B0M62Q58', 'IE0031442068', 'IE00BZ163M45']
@@ -47,7 +47,7 @@ class DeGiroConverterAccount:
             index=self.df.index, columns=util.EXPORT_COLUMNS_ACCOUNT, data=None)
 
     def convert(self):
-        self.outputdata['Date'] = self.df['Datum'].apply(degiro2pp.util.convert_date)
+        self.outputdata['Date'] = self.df['Datum'].apply(convert2pp.util.convert_date)
         self.outputdata['ISIN'] = self.df['ISIN']
         self.df['Value'] = self.df.iloc[:, 8].astype(float)
         self.outputdata['Transaction Currency'] = self.df['Mutatie']
