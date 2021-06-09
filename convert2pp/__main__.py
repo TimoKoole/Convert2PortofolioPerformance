@@ -16,7 +16,7 @@ if __name__ == '__main__':
     parser.add_argument('-t', '--type', help='file input type, default account', type=str, nargs='?',
                         choices=['account', 'transactions'], default='account')
     parser.add_argument('-b', '--broker', help='boker , default degiro', type=str, nargs='?',
-                        choices=['degiro', 'ing'], default='account')
+                        choices=['degiro', 'ing'], default='degiro')
     args = parser.parse_args()
     print("Converting file:" + args.input)
 
