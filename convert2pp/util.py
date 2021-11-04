@@ -7,5 +7,5 @@ def convert_date(date):
 EXPORT_COLUMNS_TRANSACTIONS = ["Date", "ISIN", "Value", "shares",
                       "Fees", 'Transaction Currency', 'Exchange Rate', 'Type', 'Notes']
 
-EXPORT_COLUMNS_ACCOUNT = ["Date", "ISIN", "Value",
+EXPORT_COLUMNS_ACCOUNT = ["Date", "Value",
                           "shares", "Fees", 'Transaction Currency', 'Type']

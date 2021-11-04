@@ -15,7 +15,9 @@ class IngConverterTrans:
             self.inputdata = pd.read_csv(inputfile,
                                          decimal=",",
                                          delimiter="\t",
-                                         parse_dates=[0], date_parser=dateparse)
+                                         parse_dates=[0],
+                                         date_parser=dateparse,
+                                         encoding = 'UTF-16LE')
         else:
             self.inputdata = data
         print(str(self.inputdata.to_dict()).replace(" nan", " float('nan')"))

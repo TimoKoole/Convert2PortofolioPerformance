@@ -15,7 +15,7 @@ class IngConverterAccount:
 
     def dateparse(self, date):
         try:
-            return datetime.datetime.strptime(date, '%Y-%m-%d')
+            return datetime.datetime.strptime(date, '%d-%m-%Y')
         except:
             return ''
 
@@ -24,7 +24,8 @@ class IngConverterAccount:
 
         if data is None:
             self.inputdata = pd.read_csv(inputfile, parse_dates=[
-                0], date_parser=self.dateparse, delimiter=";",)
+                0], date_parser=self.dateparse, delimiter="\t",
+                                         encoding='UTF-16LE')
         else:
             self.inputdata = data
         self.df = self.filter_input()
@@ -49,14 +50,19 @@ class IngConverterAccount:
         df = self.inputdata
 
         # exclude this selection
-        df = df[~df["Omschrijving"].str.contains('koop')]
+        try:
+            df = df[~df["Omschrijving"].str.contains('koop')]
+        except KeyError as e:
+            print("Failed to exclude buy orders")
+            print(df)
+            raise e
 
 
         return df
 
 
 if __name__ == '__main__':
-    converter = IngConverterAccount(os.path.dirname(sys.argv[0]) + '\\from_ing_af_en_bij.csv')
+    converter = IngConverterAccount(os.path.dirname(sys.argv[0]) + '/cash_transaction_overview_14086339-100-1-14086338_2021-10-04_2021-11-04.csv')
     converter.convert()
     filename = os.path.join(os.getcwd(), 'ing_account_converted.csv')
     converter.write_outputfile(filename)
