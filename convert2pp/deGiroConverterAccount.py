@@ -34,7 +34,7 @@ class DeGiroConverterAccount:
             return ''
 
     def __init__(self, inputfile: str = None, data=None):
-        self.note = 'degiro2pp import at: ' + str(datetime.datetime.now())
+        self.note = 'convert2pp import at: ' + str(datetime.datetime.now())
 
         if data is None:
             self.inputdata = pd.read_csv(inputfile, parse_dates=[
@@ -84,5 +84,5 @@ class DeGiroConverterAccount:
 if __name__ == '__main__':
     converter = DeGiroConverterAccount(os.path.dirname(sys.argv[0]) + '\\Account.csv')
     converter.convert()
-    converter.write_outputfile(os.path.dirname(
-        sys.argv[0]), 'degiro_account_converted.csv')
+    filename = os.path.join(os.getcwd(), "degiro_account_converted.csv")
+    converter.write_outputfile(filename)

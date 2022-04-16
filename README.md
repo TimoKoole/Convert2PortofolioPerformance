@@ -2,16 +2,16 @@
 
 ## Degiro
 ### Account.csv
-DegiroType: Rekening
-portofolio performance type: Account
-import twice, one for usd account one for EUR account
+* DegiroType: Rekeningoverzicht https://trader.degiro.nl/trader/#/account-overview
+* portofolio performance type: Account
+* import twice, one for usd account one for EUR account
 
 ### Transactions.csv
 As of now Transaction import by PDF actually works fine out of the box
 
 ## ING
-Transactions --> Wijzigingen in portefeuille
-Account --> Af en bij
+* Transactions --> https://mijn.ing.nl/investments/portfolio-transactions
+* Account --> https://mijn.ing.nl/investments/cash-transactions
 
 ## Setup and install
 * create distribution by `python setup.py sdist`

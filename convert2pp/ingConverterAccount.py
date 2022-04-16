@@ -20,7 +20,7 @@ class IngConverterAccount:
             return ''
 
     def __init__(self, inputfile: str = None, data=None):
-        self.note = 'degiro2pp import at: ' + str(datetime.datetime.now())
+        self.note = 'convert2pp import at: ' + str(datetime.datetime.now())
 
         if data is None:
             self.inputdata = pd.read_csv(inputfile, parse_dates=[

@@ -23,7 +23,7 @@ class IngConverterTrans:
         print(str(self.inputdata.to_dict()).replace(" nan", " float('nan')"))
         self.outputdata = pd.DataFrame(
             index=self.inputdata.index, columns=util.EXPORT_COLUMNS_TRANSACTIONS, data=None)
-        self.note = 'Timo import at: ' + str(datetime.datetime.now())
+        self.note = 'convert2pp import at: ' + str(datetime.datetime.now())
 
     def convert(self):
         self.outputdata['Date'] = self.inputdata['Datum'].apply(util.convert_date)
