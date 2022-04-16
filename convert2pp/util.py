@@ -4,8 +4,9 @@ def convert_date(date):
     day = str(date.day)
     return year + '-' + month + '-' + day
 
-EXPORT_COLUMNS_TRANSACTIONS = ["Date", "ISIN", "Value", "shares",
-                      "Fees", 'Transaction Currency', 'Exchange Rate', 'Type', 'Notes']
+
+EXPORT_COLUMNS_TRANSACTIONS = ["Date", "ISIN", "Value", "Shares",
+                               "Fees", "Taxes", 'Transaction Currency', 'Exchange Rate', 'Type', 'Notes']
 
 EXPORT_COLUMNS_ACCOUNT = ["Date", "Value",
-                          "shares", "Fees", 'Transaction Currency', 'Type']
+                          "Shares", "Fees", 'Transaction Currency', 'Type']

@@ -28,7 +28,7 @@ class TestdeINGConverterTrans(unittest.TestCase):
         converter.convert()
 
         result = converter.outputdata
-        self.assertEqual(result['shares'][0], 83.595)
+        self.assertEqual(result['Shares'][0], 83.595)
         self.assertEqual(result['Transaction Currency'][0], 'EUR')
 
 
