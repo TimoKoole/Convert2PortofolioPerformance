@@ -1,14 +1,11 @@
 import datetime
-import logging
 import os
 import sys
-import convert2pp.util as util
 
 import pandas as pd
 
-
 import convert2pp.util
-
+import convert2pp.util as util
 
 
 class IngConverterAccount:
@@ -24,7 +21,7 @@ class IngConverterAccount:
 
         if data is None:
             self.inputdata = pd.read_csv(inputfile, parse_dates=[
-                0], date_parser=self.dateparse, delimiter="\t",  decimal=",",
+                0], date_parser=self.dateparse, delimiter="\t", decimal=",",
                                          encoding='UTF-16LE')
         else:
             self.inputdata = data
@@ -38,9 +35,9 @@ class IngConverterAccount:
         self.outputdata['Value'] = self.df['Bedrag']
         self.outputdata['Transaction Currency'] = 'EUR'
         self.outputdata['Note'] = self.note
-        # self.outputdata['Type'][self.df['Omschrijving'].str.contains("Dividendbelasting")] = 'Taxes'
-        self.outputdata['Type'][self.df['Omschrijving'].str.contains("Overschrijving beleggingsrekening")] = 'Deposit'
-
+        self.outputdata.loc[self.df['Omschrijving'].str.contains("Basisfee"), 'Type'] = 'Fees'
+        self.outputdata.loc[
+            self.df['Omschrijving'].str.contains("Overschrijving beleggingsrekening"), 'Type'] = 'Deposit'
 
     def write_outputfile(self, outputfile: str):
         self.outputdata.to_csv(outputfile, decimal=".", sep=";")
@@ -53,19 +50,19 @@ class IngConverterAccount:
         try:
             df = df[~df["Omschrijving"].str.contains('koop')]
             df = df[~df["Omschrijving"].str.contains('Dividenden')]
+            df = df[~df["Omschrijving"].str.contains('Kosten beleggen')]
         except KeyError as e:
             print("Failed to exclude buy orders")
             print(df)
             raise e
-
 
         return df
 
 
 # https://mijn.ing.nl/investments/cash-transactions
 if __name__ == '__main__':
-    converter = IngConverterAccount(os.path.dirname(sys.argv[0]) + '/cash_transaction_overview_14086339-100-1-14086338_2022-02-07_2022-04-16.csv')
+    converter = IngConverterAccount(
+        os.path.dirname(sys.argv[0]) + '/cash_transaction_overview_14086339-100-1-14086338_2022-04-08_2022-05-20.csv')
     converter.convert()
     filename = os.path.join(os.getcwd(), 'ing_account_converted.csv')
     converter.write_outputfile(filename)
-

@@ -1,8 +1,10 @@
-import sys
-import os
-import pandas as pd
-import convert2pp.util as util
 import datetime
+import os
+import sys
+
+import pandas as pd
+
+import convert2pp.util as util
 
 
 def dateparse(x): return datetime.datetime.strptime(x, '%d-%m-%Y')
@@ -20,7 +22,7 @@ class IngConverterTrans:
                                          encoding='UTF-16LE')
         else:
             self.inputdata = data
-        print(str(self.inputdata.to_dict()).replace(" nan", " float('nan')"))
+        # print(str(self.inputdata.to_dict()).replace(" nan", " float('nan')"))
         self.outputdata = pd.DataFrame(
             index=self.inputdata.index, columns=util.EXPORT_COLUMNS_TRANSACTIONS, data=None)
         self.note = 'convert2pp import at: ' + str(datetime.datetime.now())
