@@ -53,6 +53,7 @@ class TestIngConverterAccountt(unittest.TestCase):
         self.assertEqual(converter.outputdata[converter.outputdata['Type'] == 'Fees'].shape[0], 1)
         self.assertEqual(converter.outputdata[converter.outputdata['Type'].isna()].shape[0], 0)
         self.assertEqual(converter.outputdata[converter.outputdata['Type'] == 'Fees'].iloc[0]['Value'], -13.27)
+        self.assertEqual(converter.outputdata[converter.outputdata['Type'] == 'Deposit']['Value'].sum(), 2513.27)
 
 if __name__ == '__main__':
     unittest.main()

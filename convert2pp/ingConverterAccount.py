@@ -35,7 +35,9 @@ class IngConverterAccount:
         self.outputdata['Value'] = self.df['Bedrag']
         self.outputdata['Transaction Currency'] = 'EUR'
         self.outputdata['Note'] = self.note
+
         self.outputdata.loc[self.df['Omschrijving'].str.contains("Basisfee"), 'Type'] = 'Fees'
+        self.outputdata.loc[self.df['Omschrijving'].str.contains("Kosten beleggen"), 'Type'] = 'Deposit'
         self.outputdata.loc[
             self.df['Omschrijving'].str.contains("Overschrijving beleggingsrekening"), 'Type'] = 'Deposit'
 
@@ -50,7 +52,6 @@ class IngConverterAccount:
         try:
             df = df[~df["Omschrijving"].str.contains('koop')]
             df = df[~df["Omschrijving"].str.contains('Dividenden')]
-            df = df[~df["Omschrijving"].str.contains('Kosten beleggen')]
         except KeyError as e:
             print("Failed to exclude buy orders")
             print(df)

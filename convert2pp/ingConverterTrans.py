@@ -23,6 +23,7 @@ class IngConverterTrans:
         else:
             self.inputdata = data
         # print(str(self.inputdata.to_dict()).replace(" nan", " float('nan')"))
+        self.inputdata = filter_input(self.inputdata)
         self.outputdata = pd.DataFrame(
             index=self.inputdata.index, columns=util.EXPORT_COLUMNS_TRANSACTIONS, data=None)
         self.note = 'convert2pp import at: ' + str(datetime.datetime.now())
@@ -46,6 +47,8 @@ class IngConverterTrans:
 def convert_isin(name: str):
     if "orthern Trust World Custom Index Fund" in name:
         return "NL0011225305"
+    elif "Northern Trust EM Custom ESG Eq Idx Fund" in name:
+        return "NL0011515424"
     else:
         return ""
 
@@ -59,11 +62,23 @@ def convert_type(name: str):
         return ''
 
 
+def filter_input(df):
+    # exclude this selection
+    try:
+        df = df[~df["Type"].str.contains('TOEK')]
+    except KeyError as e:
+        print("Failed to exclude buy orders")
+        print(df)
+        raise e
+
+    return df
+
+
 # https://mijn.ing.nl/investments/portfolio-transactions/
 if __name__ == '__main__':
     converter = IngConverterTrans(
         os.path.dirname(
-            sys.argv[0]) + '\\portfolio_transaction_overview_14086339-100-1-14086338_2022-02-09_2022-04-16.csv')
+            sys.argv[0]) + '\\portfolio_transaction_overview_14086339-100-1-14086338_2022-04-08_2022-05-20.csv')
     converter.convert()
     filename = os.path.join(os.getcwd(), 'ing_transactions_converted.csv')
     converter.write_outputfile(filename)
