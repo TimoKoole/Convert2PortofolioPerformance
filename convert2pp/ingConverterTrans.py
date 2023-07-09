@@ -45,9 +45,9 @@ class IngConverterTrans:
 
 
 def convert_isin(name: str):
-    if "orthern Trust World Custom Index Fund" in name:
+    if "orthern Trust World Custom Index Fund" in name or "Northern Trust WC" in name  :
         return "NL0011225305"
-    elif "Northern Trust EM Custom ESG Eq Idx Fund" in name:
+    elif "Northern Trust EM" in name:
         return "NL0011515424"
     else:
         return ""
@@ -78,7 +78,7 @@ def filter_input(df):
 if __name__ == '__main__':
     converter = IngConverterTrans(
         os.path.dirname(
-            sys.argv[0]) + '\\portfolio_transaction_overview_14086339-100-1-14086338_2022-04-08_2022-05-20.csv')
+            sys.argv[0]) + '/portfolio_transaction_overview_14086339-100-1-14086338_2023-06-01_2023-07-09.csv')
     converter.convert()
     filename = os.path.join(os.getcwd(), 'ing_transactions_converted.csv')
     converter.write_outputfile(filename)

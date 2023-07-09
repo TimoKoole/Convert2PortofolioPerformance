@@ -4,7 +4,6 @@ import sys
 
 import pandas as pd
 
-import convert2pp.util
 import convert2pp.util as util
 
 
@@ -31,7 +30,7 @@ class IngConverterAccount:
             index=self.df.index, columns=util.EXPORT_COLUMNS_ACCOUNT, data=None)
 
     def convert(self):
-        self.outputdata['Date'] = self.df['Datum'].apply(convert2pp.util.convert_date)
+        self.outputdata['Date'] = self.df['Datum'].apply(util.convert_date)
         self.outputdata['Value'] = self.df['Bedrag']
         self.outputdata['Transaction Currency'] = 'EUR'
         self.outputdata['Note'] = self.note
@@ -63,7 +62,7 @@ class IngConverterAccount:
 # https://mijn.ing.nl/investments/cash-transactions
 if __name__ == '__main__':
     converter = IngConverterAccount(
-        os.path.dirname(sys.argv[0]) + '/cash_transaction_overview_14086339-100-1-14086338_2022-04-08_2022-05-20.csv')
+        os.path.dirname(sys.argv[0]) + '/cash_transaction_overview_14086339-100-1-14086338_2023-06-01_2023-07-09.csv')
     converter.convert()
     filename = os.path.join(os.getcwd(), 'ing_account_converted.csv')
     converter.write_outputfile(filename)
