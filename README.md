@@ -4,9 +4,7 @@
 
 ### Account.csv
 
-* DegiroType: Rekeningoverzicht <https://trader.degiro.nl/trader/#/account-overview>
-* portofolio performance type: Account
-* import twice, one for usd account one for EUR account
+As of now Account import by PDF actually works fine out of the box
 
 ### Transactions.csv
 
