@@ -78,7 +78,7 @@ def filter_input(df):
 if __name__ == '__main__':
     converter = IngConverterTrans(
         os.path.dirname(
-            sys.argv[0]) + '/portfolio_transaction_overview_14086339-100-1-14086338_2023-06-01_2023-07-09.csv')
+            sys.argv[0]) + '/portfolio_transaction_overview_14086339-100-1-14086338_2023-10-01_2023-11-19.csv')
     converter.convert()
     filename = os.path.join(os.getcwd(), 'ing_transactions_converted.csv')
     converter.write_outputfile(filename)

@@ -23,7 +23,7 @@ class DeGiroConverterTrans:
     def convert(self):
         self.outputdata['Date'] = self.inputdata['Datum'].apply(util.convert_date)
         self.outputdata['ISIN'] = self.inputdata['ISIN']
-        self.outputdata['shares'] = self.inputdata['Aantal']
+        self.outputdata['Shares'] = self.inputdata['Aantal']
         self.outputdata['Fees'] = self.inputdata.iloc[:, 14]
         self.outputdata['Value'] = self.inputdata['Waarde'].fillna(0.0)
         self.outputdata['Transaction Currency'] = self.inputdata.iloc[:, 10]
@@ -36,7 +36,7 @@ class DeGiroConverterTrans:
 
 if __name__ == '__main__':
     converter = DeGiroConverterTrans(
-        os.path.dirname(sys.argv[0]) + '\\Transactions.csv')
+        os.path.dirname(sys.argv[0]) + '/Transactions.csv')
     converter.convert()
-    converter.write_outputfile(os.path.dirname(
-        sys.argv[0]), 'degiro_portofolio_converted.csv')
+    filename = os.path.join(os.getcwd(), 'degiro_portofolio_converted.csv')
+    converter.write_outputfile(filename)

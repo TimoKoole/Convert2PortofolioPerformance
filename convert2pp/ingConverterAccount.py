@@ -62,7 +62,7 @@ class IngConverterAccount:
 # https://mijn.ing.nl/investments/cash-transactions
 if __name__ == '__main__':
     converter = IngConverterAccount(
-        os.path.dirname(sys.argv[0]) + '/cash_transaction_overview_14086339-100-1-14086338_2023-06-01_2023-07-09.csv')
+        os.path.dirname(sys.argv[0]) + '/cash_transaction_overview_14086339-100-1-14086338_2023-10-01_2023-11-19.csv')
     converter.convert()
     filename = os.path.join(os.getcwd(), 'ing_account_converted.csv')
     converter.write_outputfile(filename)
