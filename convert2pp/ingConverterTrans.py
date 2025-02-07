@@ -16,7 +16,7 @@ class IngConverterTrans:
         if data is None:
             self.inputdata = pd.read_csv(inputfile,
                                          decimal=",",
-                                         delimiter="\t",
+                                         delimiter=";",
                                          parse_dates=[0],
                                          date_parser=dateparse,
                                          encoding='UTF-16LE')
@@ -54,9 +54,9 @@ def convert_isin(name: str):
 
 
 def convert_type(name: str):
-    if name == 'K':
+    if name == 'K' or name == 'Effecten koop':
         return 'Buy'
-    elif name == 'UITK':
+    elif name == 'UITK' or name == 'Uitkeren':
         return 'Dividend'
     else:
         return ''
@@ -78,7 +78,7 @@ def filter_input(df):
 if __name__ == '__main__':
     converter = IngConverterTrans(
         os.path.dirname(
-            sys.argv[0]) + '/portfolio_transaction_overview_14086339-100-1-14086338_2023-10-01_2023-11-19.csv')
+            sys.argv[0]) + '/portfolio_transaction_overview_14086339-100-1-14086338_2024-10-01_2025-02-07.csv')
     converter.convert()
     filename = os.path.join(os.getcwd(), 'ing_transactions_converted.csv')
     converter.write_outputfile(filename)

@@ -20,7 +20,7 @@ class IngConverterAccount:
 
         if data is None:
             self.inputdata = pd.read_csv(inputfile, parse_dates=[
-                0], date_parser=self.dateparse, delimiter="\t", decimal=",",
+                0], date_parser=self.dateparse, delimiter=";", decimal=",",
                                          encoding='UTF-16LE')
         else:
             self.inputdata = data
@@ -62,7 +62,7 @@ class IngConverterAccount:
 # https://mijn.ing.nl/investments/cash-transactions
 if __name__ == '__main__':
     converter = IngConverterAccount(
-        os.path.dirname(sys.argv[0]) + '/cash_transaction_overview_14086339-100-1-14086338_2023-10-01_2023-11-19.csv')
+        os.path.dirname(sys.argv[0]) + '/cash_transaction_overview_14086339-100-1-14086338_2024-10-01_2025-02-07_EUR.csv')
     converter.convert()
     filename = os.path.join(os.getcwd(), 'ing_account_converted.csv')
     converter.write_outputfile(filename)
